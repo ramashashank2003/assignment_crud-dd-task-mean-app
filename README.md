@@ -134,5 +134,12 @@ All screenshots are available in the `/screenshots` directory.
 # ▶️ How to Run Locally
 
 ```bash
-docker compose up -d
-# 📦 Project Architecture
+docker
+http://localhostcompose up -d
+http://localhost
+
+
+
+
+
+
