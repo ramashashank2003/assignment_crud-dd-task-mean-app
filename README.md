@@ -1,28 +1,87 @@
-In this DevOps task, you need to build and deploy a full-stack CRUD application using the MEAN stack (MongoDB, Express, Angular 15, and Node.js). The backend will be developed with Node.js and Express to provide REST APIs, connecting to a MongoDB database. The frontend will be an Angular application utilizing HTTPClient for communication.  
+# MEAN Stack DevOps Deployment
 
-The application will manage a collection of tutorials, where each tutorial includes an ID, title, description, and published status. Users will be able to create, retrieve, update, and delete tutorials. Additionally, a search box will allow users to find tutorials by title.
+This project demonstrates containerization, CI/CD automation, and cloud deployment of a full-stack MEAN application using Docker, Jenkins, and AWS EC2.
 
-## Project setup
+---
 
-### Node.js Server
+## 🚀 Tech Stack
 
-cd backend
+- MongoDB
+- Express.js
+- Angular 15
+- Node.js
+- Docker
+- Docker Compose
+- Jenkins
+- GitHub Webhooks
+- AWS EC2 (Ubuntu)
 
-npm install
+---
 
-You can update the MongoDB credentials by modifying the `db.config.js` file located in `app/config/`.
+## 📦 Project Architecture
 
-Run `node server.js`
+GitHub → Webhook → Jenkins → Docker Build → Docker Hub → EC2 → Docker Compose → Running Containers
 
-### Angular Client
+---
 
-cd frontend
+## 🐳 Docker Setup
 
-npm install
+### Backend
+- Node 18 base image
+- Production dependencies installed
+- Exposed internally on port 8080
 
-Run `ng serve --port 8081`
+### Frontend
+- Multi-stage build
+- Angular production build
+- Served via Nginx (port 80)
 
-You can modify the `src/app/services/tutorial.service.ts` file to adjust how the frontend interacts with the backend.
+### Database
+- Official MongoDB Docker image
+- Internal Docker network communication
 
+---
+
+## ☁️ Cloud Deployment
+
+- Ubuntu EC2 instance
+- Docker & Docker Compose installed
+- Jenkins running on port 8080
+- Application accessible on port 80
+
+---
+
+## 🔁 CI/CD Pipeline
+
+Implemented using Jenkins Declarative Pipeline.
+
+### Pipeline Stages:
+1. Checkout Code
+2. Build Backend Docker Image
+3. Build Frontend Docker Image
+4. Login to Docker Hub
+5. Push Images
+6. Deploy using Docker Compose
+
+Webhook triggers pipeline automatically on GitHub push.
+
+---
+
+## 📸 Screenshots
+
+See `/screenshots` folder for:
+
+- Jenkins successful pipeline execution
+- Docker Hub image repository
+- EC2 running containers
+- Application UI running on port 80
+- GitHub webhook delivery success
+
+---
+
+## ▶️ How to Run Locally
+
+```bash
+docker compose up -d
 Navigate to `http://localhost:8081/`
 # assignment_crud-dd-task-mean-app
