@@ -50,9 +50,9 @@ pipeline {
         stage('Deploy on EC2') {
             steps {
                 sh '''
-                docker compose down || true
-                docker compose pull
-                docker compose up -d
+                docker compose -p mean-app down || true
+                docker compose -p mean-app pull
+                docker compose -p mean-app up -d
                 '''
             }
         }
