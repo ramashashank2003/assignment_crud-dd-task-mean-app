@@ -1,10 +1,17 @@
-# MEAN Stack DevOps Deployment
+# 🚀 MEAN Stack DevOps Deployment
 
-This project demonstrates containerization, CI/CD automation, and cloud deployment of a full-stack MEAN application using Docker, Jenkins, and AWS EC2.
+This project demonstrates full DevOps implementation of a MEAN (MongoDB, Express, Angular, Node.js) application including:
+
+- Containerization using Docker
+- CI/CD automation using Jenkins
+- Docker Hub image management
+- Cloud deployment on AWS EC2 (Ubuntu)
+- Webhook-triggered automated deployments
+- Nginx reverse proxy serving application on Port 80
 
 ---
 
-## 🚀 Tech Stack
+# 🛠 Tech Stack
 
 - MongoDB
 - Express.js
@@ -12,50 +19,82 @@ This project demonstrates containerization, CI/CD automation, and cloud deployme
 - Node.js
 - Docker
 - Docker Compose
-- Jenkins
+- Jenkins (Declarative Pipeline)
 - GitHub Webhooks
-- AWS EC2 (Ubuntu)
+- AWS EC2 (Ubuntu 22.04)
+- Nginx
+
+---
+# 📦 Project Architecture
+        ┌─────────────┐
+        │   GitHub    │
+        └──────┬──────┘
+               │ Webhook Trigger
+               ▼
+        ┌─────────────┐
+        │   Jenkins   │
+        │  (EC2:8080) │
+        └──────┬──────┘
+               │
+     Build & Push Docker Images
+               │
+               ▼
+        ┌─────────────┐
+        │ Docker Hub  │
+        └──────┬──────┘
+               │
+               ▼
+        ┌─────────────┐
+        │  EC2 Server │
+        │ Docker Compose
+        └──────┬──────┘
+               │
+    ┌──────────┼──────────┐
+    ▼          ▼          ▼
+MongoDB Backend Frontend
+(Internal) (Internal) (Port 80 via Nginx)
+
 
 ---
 
-## 📦 Project Architecture
+# 🐳 Docker Setup
 
-GitHub → Webhook → Jenkins → Docker Build → Docker Hub → EC2 → Docker Compose → Running Containers
-
----
-
-## 🐳 Docker Setup
-
-### Backend
-- Node 18 base image
+## Backend
+- Base Image: Node 18
 - Production dependencies installed
 - Exposed internally on port 8080
+- Connected to MongoDB via Docker network
 
-### Frontend
-- Multi-stage build
+## Frontend
+- Multi-stage Docker build
 - Angular production build
-- Served via Nginx (port 80)
+- Served using Nginx
+- Exposed on Port 80
 
-### Database
+## Database
 - Official MongoDB Docker image
 - Internal Docker network communication
 
 ---
 
-## ☁️ Cloud Deployment
+# ☁️ Cloud Deployment
 
 - Ubuntu EC2 instance
 - Docker & Docker Compose installed
 - Jenkins running on port 8080
 - Application accessible on port 80
+- Containers managed using Docker Compose
 
 ---
 
-## 🔁 CI/CD Pipeline
+# 🔁 CI/CD Pipeline
 
-Implemented using Jenkins Declarative Pipeline.
+Implemented using **Jenkins Declarative Pipeline**.
 
-### Pipeline Stages:
+Webhook triggers pipeline automatically on GitHub push.
+
+## Pipeline Stages
+
 1. Checkout Code
 2. Build Backend Docker Image
 3. Build Frontend Docker Image
@@ -63,25 +102,37 @@ Implemented using Jenkins Declarative Pipeline.
 5. Push Images
 6. Deploy using Docker Compose
 
-Webhook triggers pipeline automatically on GitHub push.
+Pipeline automatically:
+- Builds updated images
+- Pushes to Docker Hub
+- Pulls latest images on EC2
+- Restarts containers
 
 ---
 
-## 📸 Screenshots
+# 📸 Screenshots
 
-See `/screenshots` folder for:
+### Jenkins Successful Pipeline Execution
+![Jenkins](screenshots/jenkins-success.png)
 
-- Jenkins successful pipeline execution
-- Docker Hub image repository
-- EC2 running containers
-- Application UI running on port 80
-- GitHub webhook delivery success
+### Docker Hub Images
+![DockerHub](screenshots/dockerhub-images.png)
+
+### EC2 Running Containers
+![EC2](screenshots/ec2-containers.png)
+
+### Application UI Running on Port 80
+![App](screenshots/app-ui.png)
+
+### GitHub Webhook Trigger Success
+![Webhook](screenshots/webhook-success.png)
+
+All screenshots are available in the `/screenshots` directory.
 
 ---
 
-## ▶️ How to Run Locally
+# ▶️ How to Run Locally
 
 ```bash
 docker compose up -d
-Navigate to `http://localhost:8081/`
-# assignment_crud-dd-task-mean-app
+# 📦 Project Architecture
